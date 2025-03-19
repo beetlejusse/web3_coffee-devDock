@@ -1,103 +1,175 @@
-import Image from "next/image";
+"use client"
 
-export default function Home() {
+import { useState, useEffect } from "react"
+import { motion } from "framer-motion"
+import Link from "next/link"
+import { ArrowRight, Code, ShoppingBag, Shield } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import ConnectWallet from "@/components/connect-wallet"
+
+export default function LandingPage() {
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  const fadeIn = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+  }
+
+  const staggerContainer = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+      },
+    },
+  }
+
+  if (!mounted) return null
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <div className="flex flex-col min-h-screen">
+      {/* Hero Section */}
+      <section className="relative py-20 md:py-32 overflow-hidden">
+        <div className="container px-4 md:px-6 mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <motion.div initial="hidden" animate="visible" variants={fadeIn} className="space-y-6">
+              <h1 className="text-4xl md:text-6xl font-bold tracking-tighter">
+                Buy and Sell <span className="text-primary">Code</span> on the Blockchain
+              </h1>
+              <p className="text-xl text-muted-foreground max-w-[600px]">
+                A decentralized marketplace for developers to monetize their code and for users to purchase quality
+                projects.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Button asChild size="lg" className="group">
+                  <Link href="/marketplace">
+                    Explore Marketplace
+                    <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                  </Link>
+                </Button>
+                <ConnectWallet />
+              </div>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8 }}
+              className="relative lg:h-[500px] flex items-center justify-center"
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-3xl blur-3xl opacity-50" />
+              <div className="relative z-10 bg-background/80 backdrop-blur-sm border border-border rounded-xl p-6 w-full max-w-md shadow-xl">
+                <pre className="text-xs md:text-sm overflow-auto p-4 rounded bg-muted">
+                  <code>{`// Purchase code from the marketplace
+function purchaseCode(uint256 _listingId) {
+  // Smart contract interaction
+  const tx = await contract.purchaseCode(_listingId, {
+    value: ethers.parseEther(price)
+  });
+  
+  // Wait for confirmation
+  await tx.wait();
+  
+  // Access granted!
+  console.log("Code purchased successfully!");
+}`}</code>
+                </pre>
+              </div>
+            </motion.div>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </section>
+
+      {/* Features Section */}
+      <section className="py-20 bg-muted/50">
+        <div className="container px-4 md:px-6 mx-auto">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={staggerContainer}
+            className="text-center mb-12"
+          >
+            <motion.h2 variants={fadeIn} className="text-3xl md:text-4xl font-bold mb-4">
+              Why Choose CodeMarketplace?
+            </motion.h2>
+            <motion.p variants={fadeIn} className="text-xl text-muted-foreground max-w-[800px] mx-auto">
+              A secure, transparent, and efficient way to buy and sell code.
+            </motion.p>
+          </motion.div>
+
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={staggerContainer}
+            className="grid grid-cols-1 md:grid-cols-3 gap-8"
+          >
+            <motion.div variants={fadeIn} className="bg-card rounded-xl p-6 shadow-sm border border-border">
+              <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center mb-6">
+                <Code className="h-6 w-6 text-primary" />
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Quality Code</h3>
+              <p className="text-muted-foreground">
+                Browse through verified projects with deployed demos and GitHub repositories.
+              </p>
+            </motion.div>
+
+            <motion.div variants={fadeIn} className="bg-card rounded-xl p-6 shadow-sm border border-border">
+              <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center mb-6">
+                <ShoppingBag className="h-6 w-6 text-primary" />
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Easy Transactions</h3>
+              <p className="text-muted-foreground">
+                Purchase code with cryptocurrency in a single transaction, no middlemen involved.
+              </p>
+            </motion.div>
+
+            <motion.div variants={fadeIn} className="bg-card rounded-xl p-6 shadow-sm border border-border">
+              <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center mb-6">
+                <Shield className="h-6 w-6 text-primary" />
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Blockchain Security</h3>
+              <p className="text-muted-foreground">
+                All transactions and ownership records are secured by blockchain technology.
+              </p>
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-20">
+        <div className="container px-4 md:px-6 mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="bg-gradient-to-r from-primary/20 via-primary/10 to-background rounded-3xl p-8 md:p-12 shadow-lg border border-border"
+          >
+            <div className="max-w-3xl mx-auto text-center">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to Share Your Code?</h2>
+              <p className="text-xl text-muted-foreground mb-8">
+                List your projects on CodeMarketplace and start earning cryptocurrency for your work.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button asChild size="lg">
+                  <Link href="/create-listing">Create Listing</Link>
+                </Button>
+                <Button asChild variant="outline" size="lg">
+                  <Link href="/marketplace">Browse Marketplace</Link>
+                </Button>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
     </div>
-  );
+  )
 }
+
