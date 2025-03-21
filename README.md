@@ -1,36 +1,58 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# OpenCode: Decentralized Code Marketplace
 
-## Getting Started
+Welcome to **OpenCode**, a decentralized marketplace for developers to monetize their code and for users to purchase high-quality projects. OpenCode leverages blockchain technology for secure, transparent, and trustless transactions, ensuring a seamless experience for both sellers and buyers.
 
-First, run the development server:
+![image](https://github.com/user-attachments/assets/291fc531-4253-4f4f-b56a-d37bcf5e05fd)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Features
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Create Listings**: Developers can list their projects with details like title, description, price, GitHub repository link, and a demo URL.
+- **Purchase Code**: Buyers can purchase code securely using ETH, with transactions managed by smart contracts.
+- **Dashboard**:
+  - Sellers can manage their listings (activate/deactivate).
+  - Buyers can view and access purchased code.
+- **Smart Contract**: Built on Solidity, the smart contract ensures transparency and security by handling all transactions and access permissions.
+- **Wallet Integration**: MetaMask or and evm supported wallet integration for connecting wallets and executing transactions.
+- **Responsive UI**: A modern, user-friendly interface built with React, Tailwind CSS, and Next.js.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Live Demo
 
-## Learn More
+Test the application at: [OpenCode](https://open-code-ten.vercel.app/)
 
-To learn more about Next.js, take a look at the following resources:
+## How It Works
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. **For Sellers**:
+   - Connect your wallet via MetaMask or any evm supported wallet.
+   - Navigate to the "Create Listing" page and provide project details.
+   - Manage your listings through the dashboard.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+2. **For Buyers**:
+   - Browse available listings on the marketplace.
+   - Purchase code by clicking "BUY NOW" on a listing card.
+   - Access purchased code through the "Purchased Code" tab in the dashboard.
 
-## Deploy on Vercel
+3. **Smart Contract Logic**:
+   - The smart contract ensures that payment is transferred to the seller only when the buyer successfully purchases a listing.
+   - Buyers gain access to the GitHub repository link after completing the transaction.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Technologies Used
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+#### Frontend
+- **React**: For building a dynamic and responsive user interface.
+- **Next.js**: For server-side rendering and routing.
+- **Tailwind CSS**: For styling components with utility-first CSS classes.
+- **Framer Motion**: For smooth animations and transitions.
+
+#### Backend
+- **Solidity**: Smart contract development for handling transactions and permissions on the Ethereum blockchain.
+
+#### Blockchain
+- **Ethers.js**: For interacting with the Ethereum blockchain and smart contracts.
+- **Wallet**: Wallet integration for connecting users' Ethereum wallets.
+
+## Smart Contract Overview
+
+The `CodeMarketplace` smart contract handles all core functionalities of OpenCode:
+
+#### Structure:
